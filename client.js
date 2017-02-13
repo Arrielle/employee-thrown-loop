@@ -12,23 +12,58 @@
 $(document).ready(function(){
 
 
-  var employeeArray = [{name: 'Bob', yearsOfExperience: 4}, {name: 'Carla', yearsOfExperience: 5}, {name: 'John', yearsOfExperience: 10}];
-  var totalYearsOfExperience = 0;
-  employeeArray.forEach(function(employee, i){
-    var yearsOfExperience = employee.yearsOfExperience; //one employees experience
-    totalYearsOfExperience += employee.yearsOfExperience;
+        var employeeArray = [{name: 'Bob', yearsOfExperience: 4}, {name: 'Carla', yearsOfExperience: 5}, {name: 'John', yearsOfExperience: 10}];
+        var totalYearsOfExperience = 0;
+
+        employeeArray.forEach(function(employee, i){
+          var yearsOfExperience = parseInt(employee.yearsOfExperience); //one employees experience
+          totalYearsOfExperience += parseInt(employee.yearsOfExperience);
+
+// var totalYearsOfExperience = parseInt(totalExperience);
+
+          $('#employeeExperience').append(
+                '<tr>' +
+                '<td>' + employee.name + '</td>' +
+                '<td>' + employee.yearsOfExperience + '</td>' +
+                '</tr>');//ends append
+
+              $('#totalYears').text(totalYearsOfExperience);
+
+        });// ending employee arrayfunction
 
 
-    $('#employeeExperience').append(
-          '<tr>' +
-          '<td>' + employee.name + '</td>' +
-          '<td>' + employee.yearsOfExperience + '</td>' +
-          '</tr>');//ends append
+$('#employeeForm').on('click', 'button', function() {
 
-    return totalYearsOfExperience;
-  });
-  //
-  //
+  var name = $('#name').val();
+  var yearsOfExperience = $('#numberOfYears').val();
+
+  function Employee(name, yearsOfExperience) {
+    this.name = name,
+    this.numberOfYears = yearsOfExperience
+  }
+
+    var newEmployee = new Employee(name, yearsOfExperience);
+    employeeArray.push(newEmployee);
+
+    $('#employeeExperience').empty();
+    // $('#totalYears').text().empty();
+
+      employeeArray.forEach(function(employee, i){
+        var yearsOfExperience = parseInt(employee.yearsOfExperience); //one employees experience
+        totalYearsOfExperience += parseInt(employee.yearsOfExperience);
+
+        $('#employeeExperience').append(
+              '<tr>' +
+              '<td>' + employee.name + '</td>' +
+              '<td>' + employee.yearsOfExperience + '</td>' +
+              '</tr>');//ends append
+
+            $('#totalYears').text(totalYearsOfExperience);
+
+    console.log(totalYearsOfExperience);
+      });
+
+});
 
 });//ends document ready
 
