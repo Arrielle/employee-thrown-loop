@@ -35,20 +35,22 @@ $(document).ready(function(){
 $('#employeeForm').on('click', 'button', function() {
 
   var name = $('#name').val();
-  var yearsOfExperience = $('#numberOfYears').val();
+  var yearsOfExperience = parseInt($('#numberOfYears').val());
 
-  function Employee(name, yearsOfExperience) {
-    this.name = name,
-    this.numberOfYears = yearsOfExperience
+  function Employee(inName, inYearsOfExperience) {
+    this.name = inName,
+    this.yearsOfExperience = inYearsOfExperience
   }
 
     var newEmployee = new Employee(name, yearsOfExperience);
     employeeArray.push(newEmployee);
 
     $('#employeeExperience').empty();
-    // $('#totalYears').text().empty();
 
+    // $('#totalYears').text().empty();
+      totalYearsOfExperience = 0;
       employeeArray.forEach(function(employee, i){
+
         var yearsOfExperience = parseInt(employee.yearsOfExperience); //one employees experience
         totalYearsOfExperience += parseInt(employee.yearsOfExperience);
 
@@ -62,7 +64,6 @@ $('#employeeForm').on('click', 'button', function() {
 
     console.log(totalYearsOfExperience);
       });
-
 });
 
 });//ends document ready
