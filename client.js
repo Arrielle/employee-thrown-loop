@@ -11,60 +11,72 @@
 
 $(document).ready(function(){
 
+  var employeeArray = [{name: 'Bob', yearsOfExperience: 4}, {name: 'Carla', yearsOfExperience: 5}, {name: 'John', yearsOfExperience: 10}];
+  var totalYearsOfExperience = 0;
 
-        var employeeArray = [{name: 'Bob', yearsOfExperience: 4}, {name: 'Carla', yearsOfExperience: 5}, {name: 'John', yearsOfExperience: 10}];
-        var totalYearsOfExperience = 0;
+  employeeArray.forEach(function(employee, i){
+    var yearsOfExperience = parseInt(employee.yearsOfExperience); //one employees experience
+    totalYearsOfExperience += parseInt(employee.yearsOfExperience);
 
-        employeeArray.forEach(function(employee, i){
-          var yearsOfExperience = parseInt(employee.yearsOfExperience); //one employees experience
-          totalYearsOfExperience += parseInt(employee.yearsOfExperience);
+    // var totalYearsOfExperience = parseInt(totalExperience);
 
-// var totalYearsOfExperience = parseInt(totalExperience);
+    $('#employeeExperience').append(
+      '<tr>' +
+      '<td>' + employee.name + '</td>' +
+      '<td>' + employee.yearsOfExperience + '</td>' +
+      '</tr>'
+    );//ends append
 
-          $('#employeeExperience').append(
-                '<tr>' +
-                '<td>' + employee.name + '</td>' +
-                '<td>' + employee.yearsOfExperience + '</td>' +
-                '</tr>');//ends append
+    $('#totalYears').text(totalYearsOfExperience);
 
-              $('#totalYears').text(totalYearsOfExperience);
-
-        });// ending employee arrayfunction
+  });// ending employee arrayfunction
 
 
-$('#employeeForm').on('click', 'button', function() {
+  $('form').on('submit', function(event) {
+    event.preventDefault();
 
-  var name = $('#name').val();
-  var yearsOfExperience = parseInt($('#numberOfYears').val());
+    console.log('form has been submitted!!!!');
 
-  function Employee(inName, inYearsOfExperience) {
-    this.name = inName,
-    this.yearsOfExperience = inYearsOfExperience
-  }
+    var submissionArray = $(this).serializeArray();
+    var newEmployeeObject = {};
 
-    var newEmployee = new Employee(name, yearsOfExperience);
-    employeeArray.push(newEmployee);
+    submissionArray.forEach(function(inputFieldObject){
+      newEmployeeObject[inputFieldObject.name] = inputFieldObject.value;
+    });
+
+    // var name = $('#name').val();
+    // var yearsOfExperience = parseInt($('#numberOfYears').val());
+    //
+    // function Employee(inName, inYearsOfExperience) {
+    //   this.name = inName,
+    //   this.yearsOfExperience = inYearsOfExperience
+    // }
+    //
+    // var newEmployee = new Employee(name, yearsOfExperience);
+    employeeArray.push(newEmployeeObject);
 
     $('#employeeExperience').empty();
+    $('#totalYears').empty();
 
     // $('#totalYears').text().empty();
-      totalYearsOfExperience = 0;
-      employeeArray.forEach(function(employee, i){
+    totalYearsOfExperience = 0;
+    employeeArray.forEach(function(employee, i){
 
-        var yearsOfExperience = parseInt(employee.yearsOfExperience); //one employees experience
-        totalYearsOfExperience += parseInt(employee.yearsOfExperience);
+      // var yearsOfExperience = parseInt(employee.yearsOfExperience); //one employees experience
+      totalYearsOfExperience += parseInt(employee.yearsOfExperience);
 
-        $('#employeeExperience').append(
-              '<tr>' +
-              '<td>' + employee.name + '</td>' +
-              '<td>' + employee.yearsOfExperience + '</td>' +
-              '</tr>');//ends append
+      $('#employeeExperience').append(
+        '<tr>' +
+        '<td>' + employee.name + '</td>' +
+        '<td>' + employee.yearsOfExperience + '</td>' +
+        '</tr>'
+      );//ends append
 
-            $('#totalYears').text(totalYearsOfExperience);
+      $('#totalYears').text(totalYearsOfExperience);
 
-    console.log(totalYearsOfExperience);
-      });
-});
+      console.log(totalYearsOfExperience);
+    });
+  });
 
 });//ends document ready
 
